@@ -20,7 +20,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
   Future<void> navegarparapaginainicial() async {
     await Future.delayed(Duration(seconds: 5));
 
-    Get.to(PaginaInicialLogin());
+    Get.to(PaginainicialLogin());
   }
 
   @override
