@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
 
 class PaginainicialLogin extends StatelessWidget {
   PaginainicialLogin({super.key});
@@ -42,6 +44,21 @@ class PaginainicialLogin extends StatelessWidget {
                 children: [
                   Customtextfield(labeltext: "Email", controller: email),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+              child: Customtextfield(labeltext: "Senha", controller: senha),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(PaginaLocalizacao());
+                },
+                child: Text("Acessar", style: TextStyle(color: Colors.black)),
+                style: TextButton.styleFrom(backgroundColor: Colors.white),
               ),
             ),
           ],

@@ -14,7 +14,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
   @override
   void initState() {
     super.initState();
-    print("aldjawljandbwçdbahidwabpa");
+    navegarparapaginainicial();
   }
 
   Future<void> navegarparapaginainicial() async {
@@ -46,6 +46,11 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 100),
+              child: CircularProgressIndicator(),
             ),
           ],
         ),
