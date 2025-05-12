@@ -50,7 +50,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
 
             Padding(
               padding: const EdgeInsets.only(top: 100),
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator( color: Colors.white,),
             ),
           ],
         ),

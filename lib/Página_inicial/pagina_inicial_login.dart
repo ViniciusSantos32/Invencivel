@@ -53,12 +53,16 @@ class PaginainicialLogin extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
-              child: TextButton(
-                onPressed: () {
-                  Get.to(PaginaLocalizacao());
-                },
-                child: Text("Acessar", style: TextStyle(color: Colors.black)),
-                style: TextButton.styleFrom(backgroundColor: Colors.white),
+              child: SizedBox(
+                height: 50,
+                width: 200,
+                child: TextButton(
+                  onPressed: () {
+                    Get.to(() => PaginaLocalizacao());
+                  },
+                  child: Text("Acessar", style: TextStyle(color: Colors.black, fontSize: 16)),
+                  style: TextButton.styleFrom(backgroundColor: Colors.white),
+                ),
               ),
             ),
           ],
