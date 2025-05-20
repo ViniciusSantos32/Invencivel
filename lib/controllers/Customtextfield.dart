@@ -45,7 +45,6 @@ class _CustomtextfieldState extends State<Customtextfield> {
       ),
       obscureText: _obscureTExt,
       validator: widget.validator,
-      
     );
   }
 }
