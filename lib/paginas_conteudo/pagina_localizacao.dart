@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/Dados.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
 
 class PaginaLocalizacao extends StatefulWidget {
@@ -9,6 +10,22 @@ class PaginaLocalizacao extends StatefulWidget {
 
   @override
   _PaginaLocalizacaoState createState() => _PaginaLocalizacaoState();
+}
+
+int _currentIndex = 0;
+
+void SelectIndex(int index){
+    _currentIndex = index;
+
+    switch(index){
+      case 0:
+      Get.to(PaginaLocalizacao());
+      break;
+
+      case 1:
+      Get.to(Dados());
+      break;
+    }
 }
 
 class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
@@ -19,11 +36,7 @@ class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [Colors.black, Color.fromARGB(255, 0, 44, 241)],
-          ),
+          color: Color(0xFFcbbeb3)
         ),
         child: Column(
           children: [
@@ -80,22 +93,6 @@ class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.share_location_rounded),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy_rounded),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_sharp),
-            label: "",
-          ),
-        ],
       ),
     );
   }

@@ -22,9 +22,9 @@ class SplashScreen extends StatelessWidget {
             children: [
               Text("PIUI TRAIN", style: GoogleFonts.russoOne(textStyle: TextStyle(color: const Color.fromARGB(255, 0, 44, 241),decoration: TextDecoration.none, fontWeight: FontWeight.bold)) ),
                     ],
-                      ),)
-         
-          
-    );
+                      ),
+                        ),
+                          );
+                              
   }
 }

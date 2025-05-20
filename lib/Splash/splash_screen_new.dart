@@ -23,15 +23,13 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
     Get.to(PaginainicialLogin());
   }
 
+  Color beje = Color(0xFFcbbeb3);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [Colors.black, Color.fromARGB(255, 0, 44, 241)],
-        ),
+        color: beje,
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 350),
@@ -41,7 +39,7 @@ class _SplashScreenNewState extends State<SplashScreenNew> {
               "PIUI TRAIN",
               style: GoogleFonts.russoOne(
                 textStyle: TextStyle(
-                  color: const Color.fromARGB(255, 0, 44, 241),
+                  color: Colors.white,
                   decoration: TextDecoration.none,
                   fontWeight: FontWeight.bold,
                 ),
