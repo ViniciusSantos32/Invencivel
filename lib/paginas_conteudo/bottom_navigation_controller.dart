@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/Dados.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Dados1.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/relatorio.dart';
 
@@ -7,18 +7,14 @@ class BottomNavigationController extends StatefulWidget {
   const BottomNavigationController({super.key});
 
   @override
-  State<BottomNavigationController> createState() => _BottomNavigationControllerState();
+  State<BottomNavigationController> createState() =>
+      _BottomNavigationControllerState();
 }
 
-class _BottomNavigationControllerState extends State<BottomNavigationController> {
-
-  
-      int _selectedIndex = 0;
-  final List<Widget> _pages = [
-    PaginaLocalizacao(),
-    Relatorio(),
-    TrainDataForm()
-  ];
+class _BottomNavigationControllerState
+    extends State<BottomNavigationController> {
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [PaginaLocalizacao(), Relatorio(), Dados1()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,7 +25,7 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:     _pages[_selectedIndex],
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -49,7 +45,5 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
         ],
       ),
     );
-    
-
   }
 }

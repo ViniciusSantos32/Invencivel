@@ -14,115 +14,100 @@ class PaginainicialLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final double topPadding = size.height * 0.1;
+    final double fieldSpacing = size.height * 0.03;
+
     return Scaffold(
-      body: Form(
-        key: _key,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFcbbeb3),
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 100),
-                child: Text(
-                  "PIUI TRAIN",
-                  style: GoogleFonts.russoOne(
-                    textStyle: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: _key,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: topPadding),
+                Center(
+                  child: Text(
+                    "PIUI TRAIN",
+                    style: GoogleFonts.russoOne(
+                      textStyle: TextStyle(
+                        fontSize: size.width * 0.1,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 200, right: 20, left: 20),
-                child: Column(
-                  children: [
-                    Customtextfield(
-                      labeltext: "Email",
-                      controller: email,
-                      obscureText: false,
-                      validator: (value) {
-                        if (value == "" || value == null) {
-                          return "Coloque um email";
-                        } else if (!value.contains("@")) {
-                          return "Coloque um email válido";
-                        }else{
-                        return null;
-                        }
-                      },
-                    ),
-                  ],
+                SizedBox(height: size.height * 0.15),
+                Customtextfield(
+                  labeltext: "Email",
+                  controller: email,
+                  obscureText: false,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Coloque um email";
+                    } else if (!value.contains("@")) {
+                      return "Coloque um email válido";
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
-                child: Customtextfield(
+                SizedBox(height: fieldSpacing),
+                Customtextfield(
                   labeltext: "Senha",
                   controller: senha,
                   obscureText: true,
                   validator: (value) {
-                    if (value == "" || value == null) {
+                    if (value == null || value.isEmpty) {
                       return "Coloque uma senha";
                     }
                     return null;
                   },
                 ),
-              ),
-
-              // Botão com hover
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: HoverButton(onPressed: () {
-                  if (_key.currentState!.validate()) {
-                    Get.to(() => BottomNavigationController());
-                  }
-                }),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-                child: Row(
+                SizedBox(height: fieldSpacing),
+                HoverButton(
+                  onPressed: () {
+                    if (_key.currentState!.validate()) {
+                      Get.to(() => BottomNavigationController());
+                    }
+                  },
+                ),
+                SizedBox(height: fieldSpacing),
+                Row(
                   children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Expanded(child: Divider(thickness: 1, color: Colors.white)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text("ou"),
                     ),
-                    Expanded(
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                    ),
+                    Expanded(child: Divider(thickness: 1, color: Colors.white)),
                   ],
                 ),
-              ),
-              Text("Não tem uma conta?"),
-              TextButton(
-                onPressed: () {
-                  Get.to(CriacaoDeConta());
-                },
-                style: TextButton.styleFrom(backgroundColor: Colors.transparent),
-                child: Text("crie uma clicando aqui"),
-              ),
-            ],
+                SizedBox(height: 10),
+                Text("Não tem uma conta?"),
+                TextButton(
+                  onPressed: () {
+                    Get.to(CriacaoDeConta());
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                  ),
+                  child: Text("Crie uma clicando aqui"),
+                ),
+                SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
       ),
+      backgroundColor: const Color(0xFFcbbeb3),
     );
   }
 }
 
-// Widget separado para aplicar o efeito de hover no botão
 class HoverButton extends StatefulWidget {
   final VoidCallback onPressed;
 
@@ -141,7 +126,7 @@ class _HoverButtonState extends State<HoverButton> {
       onEnter: (_) => setState(() => isHovered = true),
       onExit: (_) => setState(() => isHovered = false),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 150),
         transform: Matrix4.translationValues(0, isHovered ? -5 : 0, 0),
         child: SizedBox(
           height: 50,

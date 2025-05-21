@@ -2,7 +2,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/Dados.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/relatorio.dart';
 
@@ -13,22 +12,6 @@ class PaginaLocalizacao extends StatefulWidget {
   _PaginaLocalizacaoState createState() => _PaginaLocalizacaoState();
 }
 
-int _currentIndex = 0;
-
-void SelectIndex(int index){
-    _currentIndex = index;
-
-    switch(index){
-      case 0:
-      Get.to(PaginaLocalizacao());
-      break;
-
-      case 1:
-      Get.to(Relatorio());
-      break;
-    }
-}
-
 class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
   @override
   Widget build(BuildContext context) {
@@ -36,9 +19,7 @@ class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: Color(0xFFcbbeb3)
-        ),
+        decoration: BoxDecoration(color: Color(0xFFcbbeb3)),
         child: Column(
           children: [
             Padding(

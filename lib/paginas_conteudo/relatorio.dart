@@ -20,39 +20,42 @@ class _RelatorioState extends State<Relatorio> {
             width: 200,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Center(
-              child: Text("Funções", style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold
-              ),),
+              child: Text(
+                "Funções",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
-          ), 
-          Expanded(child: GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            children: [
-              Container(
-                
-                height: 100,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  
+          ),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(color: Colors.white),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Icon(MdiIcons.folderInformation, size: 50),
+                        ),
+                        Text("Dados", style: TextStyle(fontSize: 20)),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Center(child: Icon(MdiIcons.folderInformation, size: 50)),
-                    Text("Dados", style: TextStyle(fontSize: 20),)
-                  ],
-                ),
-              )
-            ],
-            ))
+              ],
+            ),
+          ),
         ],
       ),
     );
