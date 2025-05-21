@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/criacao_de_conta.dart';
+import 'package:invencivelemtfodasimfdsovinicius/Página_inicial/criacao_de_conta.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/bottom_navigation_controller.dart';
-import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
 
 class PaginainicialLogin extends StatelessWidget {
   PaginainicialLogin({super.key});
@@ -20,7 +19,7 @@ class PaginainicialLogin extends StatelessWidget {
         key: _key,
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFcbbeb3)
+            color: Color(0xFFcbbeb3),
           ),
           child: Column(
             children: [
@@ -38,70 +37,122 @@ class PaginainicialLogin extends StatelessWidget {
                   ),
                 ),
               ),
-        
               Padding(
                 padding: const EdgeInsets.only(top: 200, right: 20, left: 20),
                 child: Column(
                   children: [
-                    Customtextfield(labeltext: "Email", controller: email,obscureText: false, validator: (value){
-                      if(value == "" || value == null){
-                        return "Coloque um email";
-                      }else if(!value.contains("@")){
-                        return "Coloque um email válido";
-                      }  
-                    },),
+                    Customtextfield(
+                      labeltext: "Email",
+                      controller: email,
+                      obscureText: false,
+                      validator: (value) {
+                        if (value == "" || value == null) {
+                          return "Coloque um email";
+                        } else if (!value.contains("@")) {
+                          return "Coloque um email válido";
+                        }else{
+                        return null;
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
-                child: Customtextfield(labeltext: "Senha", controller: senha,obscureText: true,  validator: (value){
-                  if(value == "" || value == null){
-                    return "coloque uma senha";
-                  }
-                },),
-              ),
-        
-              Padding(
-                padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
-                child: SizedBox(
-                  height: 50,
-                  width: 200,
-                  child: TextButton(
-                    onPressed: () {
-                      if(_key.currentState!.validate()){
-                        Get.to(() => BottomNavigationController());
-                      }
-                    },
-                    style: TextButton.styleFrom(backgroundColor: Colors.white),
-                    child: Text("Acessar", style: TextStyle(color: Colors.black, fontSize: 16)),
-                  ),
+                child: Customtextfield(
+                  labeltext: "Senha",
+                  controller: senha,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == "" || value == null) {
+                      return "Coloque uma senha";
+                    }
+                    return null;
+                  },
                 ),
               ),
+
+              // Botão com hover
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: HoverButton(onPressed: () {
+                  if (_key.currentState!.validate()) {
+                    Get.to(() => BottomNavigationController());
+                  }
+                }),
+              ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
                 child: Row(
                   children: [
-                    Expanded(child: Divider(
-                      thickness: 1,
-                      color: Colors.white,
-                    )),
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.white,
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text("ou"),
                     ),
-                    Expanded(child: Divider(
-                      color: Colors.white,
-                      thickness: 1,
-                    ),),
+                    Expanded(
+                      child: Divider(
+                        color: Colors.white,
+                        thickness: 1,
+                      ),
+                    ),
                   ],
                 ),
               ),
               Text("Não tem uma conta?"),
-              TextButton(onPressed: (){
-                Get.to(CriacaoDeConta());
-              }, style: TextButton.styleFrom(backgroundColor: Colors.transparent), child: Text("crie uma clicando aqui", ),)
+              TextButton(
+                onPressed: () {
+                  Get.to(CriacaoDeConta());
+                },
+                style: TextButton.styleFrom(backgroundColor: Colors.transparent),
+                child: Text("crie uma clicando aqui"),
+              ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Widget separado para aplicar o efeito de hover no botão
+class HoverButton extends StatefulWidget {
+  final VoidCallback onPressed;
+
+  const HoverButton({required this.onPressed, super.key});
+
+  @override
+  State<HoverButton> createState() => _HoverButtonState();
+}
+
+class _HoverButtonState extends State<HoverButton> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => isHovered = true),
+      onExit: (_) => setState(() => isHovered = false),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 150),
+        transform: Matrix4.translationValues(0, isHovered ? -5 : 0, 0),
+        child: SizedBox(
+          height: 50,
+          width: 200,
+          child: TextButton(
+            onPressed: widget.onPressed,
+            style: TextButton.styleFrom(backgroundColor: Colors.white),
+            child: Text(
+              "Acessar",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
           ),
         ),
       ),

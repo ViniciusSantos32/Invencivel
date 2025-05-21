@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/Dados.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/relatorio.dart';
 
 class PaginaLocalizacao extends StatefulWidget {
   const PaginaLocalizacao({super.key});
@@ -23,7 +24,7 @@ void SelectIndex(int index){
       break;
 
       case 1:
-      Get.to(Dados());
+      Get.to(Relatorio());
       break;
     }
 }

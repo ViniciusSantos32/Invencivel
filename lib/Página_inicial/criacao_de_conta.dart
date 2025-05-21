@@ -6,6 +6,8 @@ import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dar
 class CriacaoDeConta extends StatefulWidget {
   const CriacaoDeConta({super.key});
 
+  
+
   @override
   State<CriacaoDeConta> createState() => _CriacaoDeContaState();
 }
@@ -17,6 +19,8 @@ class _CriacaoDeContaState extends State<CriacaoDeConta> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  
+
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -26,11 +30,14 @@ class _CriacaoDeContaState extends State<CriacaoDeConta> {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criação da conta'),
+        centerTitle: true,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -78,14 +85,7 @@ class _CriacaoDeContaState extends State<CriacaoDeConta> {
                   }
                   return null;
                 },),
-              // TextFormField(
-              //   controller: _passwordController,
-              //   decoration: const InputDecoration(
-              //     labelText: 'Senha',
-              //   ),
-              //   obscureText: true,
-              //   validator: 
-              // ),
+
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
@@ -107,7 +107,6 @@ class _CriacaoDeContaState extends State<CriacaoDeConta> {
                   'Não tenho um e-mail',
                   style: TextStyle(
                     color: Colors.blue,
-                    decoration: TextDecoration.underline,
                   ),
                 ),
               ),

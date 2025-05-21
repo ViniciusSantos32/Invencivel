@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/Dados.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/relatorio.dart';
 
 class BottomNavigationController extends StatefulWidget {
   const BottomNavigationController({super.key});
@@ -15,7 +16,8 @@ class _BottomNavigationControllerState extends State<BottomNavigationController>
       int _selectedIndex = 0;
   final List<Widget> _pages = [
     PaginaLocalizacao(),
-    Dados(),
+    Relatorio(),
+    TrainDataForm()
   ];
 
   void _onItemTapped(int index) {

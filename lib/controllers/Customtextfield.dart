@@ -27,7 +27,13 @@ class _CustomtextfieldState extends State<Customtextfield> {
     widget.controller.dispose();
     super.dispose();
   }
-  bool _obscureTExt = true;
+  late bool _obscureTExt;
+
+  @override
+  void initState(){
+    super.initState();
+    _obscureTExt = widget.obscureText;
+  }
 
 
   @override
@@ -40,7 +46,9 @@ class _CustomtextfieldState extends State<Customtextfield> {
         filled: true,
         fillColor: Colors.white,
         suffixIcon:  widget.obscureText ? IconButton(onPressed: (){
+          setState(() {
           _obscureTExt = !_obscureTExt;
+          });
         }, icon: _obscureTExt ?  Icon(Icons.visibility) : Icon(Icons.visibility_off),) : null
       ),
       obscureText: _obscureTExt,
