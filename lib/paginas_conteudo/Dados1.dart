@@ -109,8 +109,8 @@ class _TrainDataFormState extends State<Dados1> {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        bool isMobile =
-            sizingInformation.deviceScreenType == DeviceScreenType.mobile;
+        bool isMobile = 
+        sizingInformation.deviceScreenType == DeviceScreenType.mobile;
 
         return Scaffold(
           appBar: AppBar(title: const Text('Dados do Trem')),

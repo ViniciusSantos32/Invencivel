@@ -300,7 +300,7 @@ packages:
     source: hosted
     version: "6.1.5"
   responsive_builder:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: responsive_builder
       sha256: "64a5ef3fbe3628e4588a0c2391c3186300e76f58621d8135cc77aac816255a3e"

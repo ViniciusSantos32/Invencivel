@@ -12,48 +12,65 @@ class _RelatorioState extends State<Relatorio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFcbbeb3),
-      body: Column(
-        children: [
-          Container(
-            height: 50,
-            width: 200,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                "Funções",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      backgroundColor: const Color(0xFFcbbeb3),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Text(
+                  "Funções",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(color: Colors.white),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Icon(MdiIcons.folderInformation, size: 50),
-                        ),
-                        Text("Dados", style: TextStyle(fontSize: 20)),
-                      ],
-                    ),
-                  ),
+            const SizedBox(height: 20),
+            // Preenche o espaço restante da tela com o grid
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.count(
+                  crossAxisCount: 2, // 2 colunas
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  children: [
+                    _buildCard("Dados", MdiIcons.folderTextOutline),
+                    _buildCard("Desempenho", MdiIcons.chartLine),
+                    _buildCard("Status do trem", MdiIcons.trainCarPassenger),
+                    _buildCard("Alerta de imprevisto", MdiIcons.alertCircleOutline),
+                  ],
                 ),
-              ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(String label, IconData icon) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 48),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ],
