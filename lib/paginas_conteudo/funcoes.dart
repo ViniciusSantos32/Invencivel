@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Dados1.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Desempenho.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Relatorio extends StatefulWidget {
@@ -43,7 +44,7 @@ class _RelatorioState extends State<Relatorio> {
                   mainAxisSpacing: 16,
                   children: [
                     _buildCard("Dados", MdiIcons.folderTextOutline, dados: true ),
-                    _buildCard("Desempenho", MdiIcons.chartLine),
+                    _buildCard("Desempenho", MdiIcons.chartLine, desempenho: true),
                     _buildCard("Status do trem", MdiIcons.trainCarPassenger),
                     _buildCard("Alerta de imprevisto", MdiIcons.alertCircleOutline),
                   ],
@@ -56,11 +57,13 @@ class _RelatorioState extends State<Relatorio> {
     );
   }
 
-  Widget _buildCard(String label, IconData icon, {bool dados = false, bool desempenho = false}) {
+  Widget _buildCard(String label, IconData icon, {bool dados = false, bool desempenho = false, bool statusTrem = false, bool alertaImprevisto = false}) {
     return GestureDetector(
       onTap: () {
         if(dados){
         Get.to(Dados1());
+        }else if(desempenho){
+          Get.to(DesempenhoPage());
         }
       },
       child: Container(

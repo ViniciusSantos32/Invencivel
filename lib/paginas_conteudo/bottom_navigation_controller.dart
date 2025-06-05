@@ -36,7 +36,7 @@ class _BottomNavigationControllerState
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.file_copy_rounded),
-            label: "Histórico",
+            label: "Funções",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_sharp),
