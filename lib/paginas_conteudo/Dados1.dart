@@ -78,6 +78,7 @@ class _TrainDataFormState extends State<Dados1> {
       child: Padding(
         padding: mobile ? const EdgeInsets.all(12) : const EdgeInsets.all(20),
         child: Column(
+          
           children: [
             Text(title, style: TextStyle(fontSize: fontSize)),
             Text(value, style: TextStyle(fontSize: fontSize)),
@@ -111,8 +112,8 @@ class _TrainDataFormState extends State<Dados1> {
       builder: (context, sizingInformation) {
         bool isMobile = 
         sizingInformation.deviceScreenType == DeviceScreenType.mobile;
-
         return Scaffold(
+          backgroundColor: const Color(0xFFcbbeb3),
           appBar: AppBar(title: const Text('Dados do Trem')),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -153,7 +154,7 @@ class _TrainDataFormState extends State<Dados1> {
                       padding: EdgeInsets.only(top: 40),
                       child: Text(
                         'Selecione um tipo de trem para ver os dados',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ),
@@ -168,28 +169,47 @@ class _TrainDataFormState extends State<Dados1> {
   Widget _buildMobileLayout() {
     final data = _trainPresets[_selectedTrainType]!;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 70),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
+
         children: [
-          _buildInfoCard(
-            title: 'Quilômetros rodados',
-            value: data['km'] ?? 'N/A',
-            mobile: true,
-            fontSize: 14,
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoCard(
+                  title: 'Quilômetros rodados',
+                  value: data['km'] ?? 'N/A',
+                  mobile: true,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
-          _buildInfoCard(
-            title: 'Lugares visitados',
-            value: data['places'] ?? 'N/A',
-            mobile: true,
-            fontSize: 14,
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoCard(
+                  title: 'Lugares visitados',
+                  value: data['places'] ?? 'N/A',
+                  mobile: true,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
-          _buildInfoCard(
-            title: 'Valor da passagem atual',
-            value: 'R\$ ${data['ticketPrice'] ?? '0.00'}',
-            mobile: true,
-            fontSize: 14,
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoCard(
+                  title: 'Valor da passagem atual',
+                  value: 'R\$ ${data['ticketPrice'] ?? '0.00'}',
+                  mobile: true,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
         ],
       ),
