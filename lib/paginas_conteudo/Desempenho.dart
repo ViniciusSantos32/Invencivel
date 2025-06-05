@@ -80,6 +80,7 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFcbbeb3),
       appBar: AppBar(
         title: const Text('Desempenho'),
         centerTitle: true,
@@ -95,6 +96,8 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                   width: 300,
                   child: DropdownButtonFormField<Trem>(
                     decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
