@@ -219,7 +219,6 @@ class _TrainDataFormState extends State<Dados1> {
   Widget _buildDesktopLayout() {
     final data = _trainPresets[_selectedTrainType]!;
     return Row(
-      // Alterado de Column para Row
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
@@ -227,7 +226,7 @@ class _TrainDataFormState extends State<Dados1> {
             title: 'Quilômetros rodados',
             value: data['km'] ?? 'N/A',
             mobile: false,
-            fontSize: 18, // Corrigido o fontSize
+            fontSize: 18,
           ),
         ),
         const SizedBox(width: 20),
