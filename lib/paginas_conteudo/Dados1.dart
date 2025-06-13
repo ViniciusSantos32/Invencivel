@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class Dados1 extends StatefulWidget {
@@ -149,15 +148,16 @@ class _TrainDataFormState extends State<Dados1> {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        bool isMobile = sizingInformation.deviceScreenType == DeviceScreenType.mobile;
-        
+        bool isMobile =
+            sizingInformation.deviceScreenType == DeviceScreenType.mobile;
+
         return Scaffold(
           backgroundColor: Color(0xFFcbbeb3),
           appBar: AppBar(
             title: const Text('Dados do Trem'),
             centerTitle: true,
             elevation: 0,
-            backgroundColor: const Color(0xFFcbbeb3)
+            backgroundColor: const Color(0xFFcbbeb3),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -166,7 +166,10 @@ class _TrainDataFormState extends State<Dados1> {
                 children: [
                   // Seletor de trem
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -185,19 +188,24 @@ class _TrainDataFormState extends State<Dados1> {
                         labelStyle: TextStyle(color: Colors.blueGrey),
                       ),
                       value: _selectedTrainType,
-                      items: _trainTypes.map((type) {
-                        final color = _trainPresets[type]!['colorValue'] as Color;
-                        return DropdownMenuItem<String>(
-                          value: type,
-                          child: Row(
-                            children: [
-                              Icon(_trainPresets[type]!['icon'], color: color),
-                              const SizedBox(width: 10),
-                              Text(type),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                      items:
+                          _trainTypes.map((type) {
+                            final color =
+                                _trainPresets[type]!['colorValue'] as Color;
+                            return DropdownMenuItem<String>(
+                              value: type,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    _trainPresets[type]!['icon'],
+                                    color: color,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(type),
+                                ],
+                              ),
+                            );
+                          }).toList(),
                       onChanged: (value) {
                         setState(() {
                           _selectedTrainType = value;
@@ -230,7 +238,8 @@ class _TrainDataFormState extends State<Dados1> {
                           Icon(
                             _trainPresets[_selectedTrainType]!['icon'],
                             size: 40,
-                            color: _trainPresets[_selectedTrainType]!['colorValue'],
+                            color:
+                                _trainPresets[_selectedTrainType]!['colorValue'],
                           ),
                           const SizedBox(width: 16),
                           Expanded(
@@ -285,7 +294,8 @@ class _TrainDataFormState extends State<Dados1> {
                           const SizedBox(height: 16),
                           _buildInfoContainer(
                             title: 'Valor da passagem',
-                            value: 'R\$${_trainPresets[_selectedTrainType]!['ticketPrice']}',
+                            value:
+                                'R\$${_trainPresets[_selectedTrainType]!['ticketPrice']}',
                             icon: Icons.attach_money,
                             color: Colors.purple,
                             isMobile: true,
@@ -315,7 +325,8 @@ class _TrainDataFormState extends State<Dados1> {
                           ),
                           _buildInfoContainer(
                             title: 'Valor da passagem',
-                            value: 'R\$${_trainPresets[_selectedTrainType]!['ticketPrice']}',
+                            value:
+                                'R\$${_trainPresets[_selectedTrainType]!['ticketPrice']}',
                             icon: Icons.attach_money,
                             color: Colors.purple,
                           ),
@@ -344,10 +355,7 @@ class _TrainDataFormState extends State<Dados1> {
                           const SizedBox(height: 16),
                           const Text(
                             'Selecione um tipo de trem para visualizar os dados',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey,
-                            ),
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
                             textAlign: TextAlign.center,
                           ),
                         ],

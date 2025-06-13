@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Dados1.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Pagina_Perfil.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/funcoes.dart';
 
@@ -14,7 +15,11 @@ class BottomNavigationController extends StatefulWidget {
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = [PaginaLocalizacao(), Relatorio(), Dados1()];
+  final List<Widget> _pages = [
+    PaginaLocalizacao(),
+    Relatorio(),
+    UserProfileApp(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {

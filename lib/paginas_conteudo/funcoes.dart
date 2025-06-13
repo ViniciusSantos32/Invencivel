@@ -22,7 +22,10 @@ class _RelatorioState extends State<Relatorio> {
             const SizedBox(height: 20),
             Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -43,10 +46,21 @@ class _RelatorioState extends State<Relatorio> {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   children: [
-                    _buildCard("Dados", MdiIcons.folderTextOutline, dados: true ),
-                    _buildCard("Desempenho", MdiIcons.chartLine, desempenho: true),
+                    _buildCard(
+                      "Dados",
+                      MdiIcons.folderTextOutline,
+                      dados: true,
+                    ),
+                    _buildCard(
+                      "Desempenho",
+                      MdiIcons.chartLine,
+                      desempenho: true,
+                    ),
                     _buildCard("Status do trem", MdiIcons.trainCarPassenger),
-                    _buildCard("Alerta de imprevisto", MdiIcons.alertCircleOutline),
+                    _buildCard(
+                      "Alerta de imprevisto",
+                      MdiIcons.alertCircleOutline,
+                    ),
                   ],
                 ),
               ),
@@ -57,12 +71,17 @@ class _RelatorioState extends State<Relatorio> {
     );
   }
 
-  Widget _buildCard(String label, IconData icon, {bool dados = false, bool desempenho = false, bool statusTrem = false, bool alertaImprevisto = false}) {
+  Widget _buildCard(
+    String label,
+    IconData icon, {
+    bool dados = false,
+    bool desempenho = false,
+  }) {
     return GestureDetector(
       onTap: () {
-        if(dados){
-        Get.to(Dados1());
-        }else if(desempenho){
+        if (dados) {
+          Get.to(Dados1());
+        } else if (desempenho) {
           Get.to(DesempenhoPage());
         }
       },

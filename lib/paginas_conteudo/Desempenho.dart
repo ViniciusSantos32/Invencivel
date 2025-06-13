@@ -13,8 +13,7 @@ class TremApp extends StatelessWidget {
       title: 'Desempenho dos Trens',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        cardTheme: CardTheme(
-          elevation: 2,
+        cardTheme: CardThemeData(
           margin: const EdgeInsets.symmetric(vertical: 8),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -81,10 +80,7 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFcbbeb3),
-      appBar: AppBar(
-        title: const Text('Desempenho'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Desempenho'), centerTitle: true),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -104,12 +100,13 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                       labelText: 'Selecione um trem',
                     ),
                     value: tremSelecionado,
-                    items: trens.map((Trem trem) {
-                      return DropdownMenuItem<Trem>(
-                        value: trem,
-                        child: Text(trem.nome),
-                      );
-                    }).toList(),
+                    items:
+                        trens.map((Trem trem) {
+                          return DropdownMenuItem<Trem>(
+                            value: trem,
+                            child: Text(trem.nome),
+                          );
+                        }).toList(),
                     onChanged: (Trem? novoValor) {
                       setState(() {
                         tremSelecionado = novoValor;
@@ -131,9 +128,8 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                       children: [
                         Text(
                           'Trem usado',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -147,7 +143,7 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Container para Quilômetro rodado
                   Container(
                     width: double.infinity,
@@ -160,9 +156,8 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                       children: [
                         Text(
                           'Quilômetro rodado',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -176,7 +171,7 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Container para Lugares visitados
                   Container(
                     width: double.infinity,
@@ -189,27 +184,31 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                       children: [
                         Text(
                           'Lugares visitados',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
                         Column(
-                          children: tremSelecionado!.lugaresVisitados
-                              .map((lugar) => Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 4),
-                                    child: Text(
-                                      lugar,
-                                      style: const TextStyle(fontSize: 18),
+                          children:
+                              tremSelecionado!.lugaresVisitados
+                                  .map(
+                                    (lugar) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                      ),
+                                      child: Text(
+                                        lugar,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
                                     ),
-                                  ))
-                              .toList(),
+                                  )
+                                  .toList(),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Container para Valor da passagem
                   Container(
                     width: double.infinity,
@@ -222,9 +221,8 @@ class _DesempenhoPageState extends State<DesempenhoPage> {
                       children: [
                         Text(
                           'Valor da passagem atual',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 8),
                         Text(
