@@ -101,6 +101,7 @@ class UserProfilePage extends StatelessWidget {
                       child: const Text(
                         'Sair',
                         style: TextStyle(
+                          color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),

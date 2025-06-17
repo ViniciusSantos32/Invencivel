@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Dados1.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Desempenho.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Eficiencia_operacional.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Relatorio extends StatefulWidget {
@@ -37,12 +38,11 @@ class _RelatorioState extends State<Relatorio> {
               ),
             ),
             const SizedBox(height: 20),
-            // Preenche o espaço restante da tela com o grid
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.count(
-                  crossAxisCount: 2, // 2 colunas
+                  crossAxisCount: 2, 
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                   children: [
@@ -56,7 +56,7 @@ class _RelatorioState extends State<Relatorio> {
                       MdiIcons.chartLine,
                       desempenho: true,
                     ),
-                    _buildCard("Status do trem", MdiIcons.trainCarPassenger),
+                    _buildCard("Status do trem", MdiIcons.trainCarPassenger, EficienciaOperacional: true),
                     _buildCard(
                       "Alerta de imprevisto",
                       MdiIcons.alertCircleOutline,
@@ -76,6 +76,7 @@ class _RelatorioState extends State<Relatorio> {
     IconData icon, {
     bool dados = false,
     bool desempenho = false,
+    bool EficienciaOperacional = false,
   }) {
     return GestureDetector(
       onTap: () {
@@ -83,6 +84,12 @@ class _RelatorioState extends State<Relatorio> {
           Get.to(Dados1());
         } else if (desempenho) {
           Get.to(DesempenhoPage());
+        }else if (EficienciaOperacional) {
+          Get.to(TelaTrens());
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Função $label ainda não implementada')),
+          );
         }
       },
       child: Container(

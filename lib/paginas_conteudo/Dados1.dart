@@ -150,7 +150,6 @@ class _TrainDataFormState extends State<Dados1> {
       builder: (context, sizingInformation) {
         bool isMobile =
             sizingInformation.deviceScreenType == DeviceScreenType.mobile;
-
         return Scaffold(
           backgroundColor: Color(0xFFcbbeb3),
           appBar: AppBar(

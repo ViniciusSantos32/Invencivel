@@ -42,8 +42,8 @@ class _PaginaLocalizacaoState extends State<PaginaLocalizacao> {
               ),
             ),
             Image.network(
-              "https://th.bing.com/th/id/OIP.iYHHu-1rybpPl0S4qMHjCQHaKd?cb=iwp2&rs=1&pid=ImgDetMain",
-              height: 500,
+              "https://img.odcdn.com.br/wp-content/uploads/2018/12/20181218065336.jpg",
+              height: 300,
               width: 300,
             ),
             Padding(
