@@ -3,14 +3,32 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invencivelemtfodasimfdsovinicius/Página_inicial/criacao_de_conta.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
+import 'package:invencivelemtfodasimfdsovinicius/controllers/usuario.dart';
+import 'package:invencivelemtfodasimfdsovinicius/models/Usuario.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/bottom_navigation_controller.dart';
 
-class PaginainicialLogin extends StatelessWidget {
+class PaginainicialLogin extends StatefulWidget {
   PaginainicialLogin({super.key});
 
+  @override
+  State<PaginainicialLogin> createState() => _PaginainicialLoginState();
+}
+
+class _PaginainicialLoginState extends State<PaginainicialLogin> {
   final TextEditingController email = TextEditingController();
+
   final TextEditingController senha = TextEditingController();
+
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("tudo pronto");
+
+    Usuario usuarios = buscarUsuarios();
+    print(usuarios);
+  }
 
   @override
   Widget build(BuildContext context) {
