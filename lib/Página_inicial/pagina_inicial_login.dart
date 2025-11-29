@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,8 +28,8 @@ class _PaginainicialLoginState extends State<PaginainicialLogin> {
     // TODO: implement initState
     print("tudo pronto");
 
-    Usuario usuarios = buscarUsuarios();
-    print(usuarios);
+    // Usuario usuarios = buscarUsuarios();
+    // print(usuarios);
   }
 
   @override
@@ -87,9 +89,17 @@ class _PaginainicialLoginState extends State<PaginainicialLogin> {
                 ),
                 SizedBox(height: fieldSpacing),
                 HoverButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_key.currentState!.validate()) {
-                      Get.to(() => BottomNavigationController());
+                      var result = await login(email.text, senha.text);
+
+                      if(result["mensagem"] == "Login bem-sucedido!"){
+                        Get.to(BottomNavigationController());
+                      }else{
+                        Get.snackbar("Erro", "Falha no login. Verifique suas credenciais.",
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white);
+                      }
                     }
                   },
                 ),
@@ -131,6 +141,8 @@ class HoverButton extends StatefulWidget {
 
   const HoverButton({required this.onPressed, super.key});
 
+  
+
   @override
   State<HoverButton> createState() => _HoverButtonState();
 }
@@ -151,6 +163,7 @@ class _HoverButtonState extends State<HoverButton> {
           width: 200,
           child: TextButton(
             onPressed: widget.onPressed,
+
             style: TextButton.styleFrom(backgroundColor: Colors.white),
             child: Text(
               "Acessar",

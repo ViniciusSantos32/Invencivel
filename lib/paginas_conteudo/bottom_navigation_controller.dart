@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Dados1.dart';
+import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/PaginaLocalizacao.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/Pagina_Perfil.dart';
-import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/pagina_localizacao.dart';
 import 'package:invencivelemtfodasimfdsovinicius/paginas_conteudo/funcoes.dart';
 
 class BottomNavigationController extends StatefulWidget {

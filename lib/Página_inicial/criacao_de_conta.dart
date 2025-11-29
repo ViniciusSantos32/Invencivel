@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/email_google.dart';
+import 'package:invencivelemtfodasimfdsovinicius/P%C3%A1gina_inicial/pagina_inicial_login.dart';
 import 'package:invencivelemtfodasimfdsovinicius/controllers/Customtextfield.dart';
+import 'package:invencivelemtfodasimfdsovinicius/controllers/usuario.dart';
 
 class CriacaoDeConta extends StatefulWidget {
   const CriacaoDeConta({super.key});
@@ -88,9 +90,18 @@ class _CriacaoDeContaState extends State<CriacaoDeConta> {
 
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     // Processar o cadastro
+                     final result = await cadastro(_emailController.text, _passwordController.text, _firstNameController.text + _lastNameController.text);
+
+                      if(result["mensagem"] == "Usuário cadastrado com sucesso!"){
+                        Get.snackbar("Sucesso", "Conta criada com sucesso!");
+                        Get.to(PaginainicialLogin());
+                      }else{
+                        Get.snackbar("Erro", "Falha no cadastro. Tente novamente.");
+                      }
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processando cadastro...')),
                     );
