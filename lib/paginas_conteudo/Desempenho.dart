@@ -1,253 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:invencivelemtfodasimfdsovinicius/controllers/Trem.dart';
+import 'package:invencivelemtfodasimfdsovinicius/models/Trem.dart';
 
-void main() {
-  runApp(const TremApp());
+class Desempenho extends StatefulWidget {
+  @override
+  State<Desempenho> createState() => _DesempenhoState();
 }
 
-class TremApp extends StatelessWidget {
-  const TremApp({super.key});
+class _DesempenhoState extends State<Desempenho> {
+  late Future<List<String>> futureTrens;
+  String? tremSelecionado;
+
+  Trem? dadosTrem; 
+  bool carregandoDados = false;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Desempenho dos Trens',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        cardTheme: CardThemeData(
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
-      home: const DesempenhoPage(),
-    );
+  void initState() {
+    super.initState();
+    futureTrens = buscarTrens(); // carrega só os nomes
   }
-}
 
-class Trem {
-  final String nome;
-  final int quilometrosRodados;
-  final List<String> lugaresVisitados;
-  final double valorPassagem;
+  Future<void> carregarDados(String nome) async {
+    setState(() {
+      carregandoDados = true;
+    });
 
-  Trem({
-    required this.nome,
-    required this.quilometrosRodados,
-    required this.lugaresVisitados,
-    this.valorPassagem = 6.0,
-  });
-}
+    try {
+      dadosTrem = await ObterDadosTremPorNome(nome);
+    } catch (e) {
+      print("Erro ao buscar dados do trem: $e");
+    }
 
-class DesempenhoPage extends StatefulWidget {
-  const DesempenhoPage({super.key});
-
-  @override
-  State<DesempenhoPage> createState() => _DesempenhoPageState();
-}
-
-class _DesempenhoPageState extends State<DesempenhoPage> {
-  Trem? tremSelecionado;
-  final List<Trem> trens = [
-    Trem(
-      nome: "Trem 1",
-      quilometrosRodados: 1250,
-      lugaresVisitados: ["Lugar 1", "Lugar 2", "Lugar 3"],
-    ),
-    Trem(
-      nome: "Trem 2",
-      quilometrosRodados: 980,
-      lugaresVisitados: ["Lugar 4", "Lugar 5", "Lugar 6"],
-    ),
-    Trem(
-      nome: "Trem 3",
-      quilometrosRodados: 1560,
-      lugaresVisitados: ["Lugar 7", "Lugar 8", "Lugar 9"],
-    ),
-    Trem(
-      nome: "Trem 4",
-      quilometrosRodados: 720,
-      lugaresVisitados: ["Lugar 1", "Lugar 5", "Lugar 9"],
-    ),
-    Trem(
-      nome: "Trem 5",
-      quilometrosRodados: 2100,
-      lugaresVisitados: ["Lugar 2", "Lugar 6", "Lugar 7"],
-    ),
-  ];
+    setState(() {
+      carregandoDados = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFcbbeb3),
-      appBar: AppBar(title: const Text('Desempenho'), centerTitle: true),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 300,
-                  child: DropdownButtonFormField<Trem>(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      labelText: 'Selecione um trem',
+      appBar: AppBar(
+        title: Text("Desempenho dos Trens"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            // --------------------------
+            //  DROPDOWN — BUSCA NOMES
+            // --------------------------
+            FutureBuilder<List<String>>(
+              future: futureTrens,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+
+                final nomes = snapshot.data!;
+
+                return DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: "Selecione um Trem",
+                    border: OutlineInputBorder(),
+                  ),
+                  value: tremSelecionado,
+                  items: nomes.map((nome) {
+                    return DropdownMenuItem(
+                      value: nome,
+                      child: Text(nome),
+                    );
+                  }).toList(),
+                  onChanged: (valor) {
+                    setState(() {
+                      tremSelecionado = valor;
+                    });
+                    carregarDados(valor!);
+                  },
+                );
+              },
+            ),
+
+            SizedBox(height: 20),
+
+            // --------------------------
+            //  STATUS DE CARREGAMENTO
+            // --------------------------
+            if (carregandoDados)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 10),
+                  Text("Carregando dados...")
+                ],
+              ),
+
+            // --------------------------
+            //  EXIBIR TREM SELECIONADO
+            // --------------------------
+            if (dadosTrem != null && !carregandoDados)
+              Expanded(
+                child: Card(
+                  elevation: 4,
+                  margin: EdgeInsets.only(top: 16),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ListView(
+                      children: [
+                        Text(
+                          dadosTrem!.nome_trem,
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Text("Cor: ${dadosTrem!.cor_trem}"),
+                        Text("Vagão: ${dadosTrem!.vagao_trem}"),
+                        Text("Velocidade: ${dadosTrem!.velocidade_trem} km/h"),
+                        Text("KM Rodado: ${dadosTrem!.kmRodado_trem} km"),
+                        Text("Lugar Visitado: ${dadosTrem!.lugarVisitado_trem}"),
+                        Text("Valor Passagem: R\$ ${dadosTrem!.valorPassagem_trem}"),
+                        Text("Atraso: ${dadosTrem!.atraso_trem}"),
+                        Text("Onde: ${dadosTrem!.onde_trem}"),
+                        Text("Próxima parada: ${dadosTrem!.proxParada_trem}"),
+                        Text("Demora estimada: ${dadosTrem!.demora_trem}"),
+                      ],
                     ),
-                    value: tremSelecionado,
-                    items:
-                        trens.map((Trem trem) {
-                          return DropdownMenuItem<Trem>(
-                            value: trem,
-                            child: Text(trem.nome),
-                          );
-                        }).toList(),
-                    onChanged: (Trem? novoValor) {
-                      setState(() {
-                        tremSelecionado = novoValor;
-                      });
-                    },
                   ),
                 ),
-                const SizedBox(height: 30),
-                if (tremSelecionado != null) ...[
-                  // Container para Trem usado
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[50],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Trem usado',
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          tremSelecionado!.nome,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Container para Quilômetro rodado
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green[50],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Quilômetro rodado',
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          '${tremSelecionado!.quilometrosRodados} km',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Container para Lugares visitados
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.orange[50],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Lugares visitados',
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 12),
-                        Column(
-                          children:
-                              tremSelecionado!.lugaresVisitados
-                                  .map(
-                                    (lugar) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 4,
-                                      ),
-                                      child: Text(
-                                        lugar,
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Container para Valor da passagem
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.purple[50],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Valor da passagem atual',
-                          style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'R\$${tremSelecionado!.valorPassagem.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ] else ...[
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40),
-                    child: Text(
-                      'Selecione um trem para visualizar as informações',
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
+              ),
+          ],
         ),
       ),
     );

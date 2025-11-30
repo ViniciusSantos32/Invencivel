@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:invencivelemtfodasimfdsovinicius/controllers/Trem.dart';
+import 'package:invencivelemtfodasimfdsovinicius/models/Trem.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -13,51 +15,27 @@ class TelaTrens extends StatefulWidget {
 class _TelaTrensState extends State<TelaTrens> {
   String? tremSelecionado;
 
-  // Informações fictícias para cada trem
-  final Map<String, Map<String, String>> infoTrens = {
-    'Trem 1': {
-      'aviso': 'No horário',
-      'localizacao': 'Estação Central',
-      'proxima': 'Parada Norte',
-      'tempo': '3 minutos'
-    },
-    'Trem 2': {
-      'aviso': 'Atrasado 5 min',
-      'localizacao': 'Entre estações',
-      'proxima': 'Parada Sul',
-      'tempo': '7 minutos'
-    },
-    'Trem 3': {
-      'aviso': 'Adiantado',
-      'localizacao': 'Estação Leste',
-      'proxima': 'Parada Centro',
-      'tempo': '2 minutos'
-    },
-    'Trem 4': {
-      'aviso': 'Atrasado 10 min',
-      'localizacao': 'Estação Oeste',
-      'proxima': 'Parada Final',
-      'tempo': '12 minutos'
-    },
-    'Trem 5': {
-      'aviso': 'No horário',
-      'localizacao': 'Estação Norte',
-      'proxima': 'Parada Leste',
-      'tempo': '5 minutos'
-    },
-  };
+  late Future<List<String>> nomesTrens;
 
   String aviso = '';
   String localizacao = '';
   String proximaParada = '';
   String tempo = '';
 
-  void atualizarInformacoes(String trem) {
+  @override
+  void initState() {
+    super.initState();
+    nomesTrens = buscarTrens(); // ← CARREGA LISTA DE NOMES DA API
+  }
+
+  Future<void> atualizarInformacoes(String nome) async {
+    final dados = await ObterDadosTremPorNome(nome);
+
     setState(() {
-      aviso = infoTrens[trem]!['aviso']!;
-      localizacao = infoTrens[trem]!['localizacao']!;
-      proximaParada = infoTrens[trem]!['proxima']!;
-      tempo = infoTrens[trem]!['tempo']!;
+      aviso = dados.atraso_trem;
+      localizacao = dados.onde_trem;
+      proximaParada = dados.proxParada_trem;
+      tempo = dados.demora_trem;
     });
   }
 
@@ -73,47 +51,58 @@ class _TelaTrensState extends State<TelaTrens> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Eficiência operacional',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Tipos de trens'),
-              ),
-              DropdownButton<String>(
-                isExpanded: true,
-                value: tremSelecionado,
-                hint: Text("Selecione"),
-                items: List.generate(
-                  5,
-                  (index) => DropdownMenuItem(
-                    value: 'Trem ${index + 1}',
-                    child: Text('Trem ${index + 1}'),
+          child: FutureBuilder<List<String>>(
+            future: nomesTrens,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData)
+                return Center(child: CircularProgressIndicator());
+
+              final lista = snapshot.data!;
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Eficiência operacional',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                ),
-                onChanged: (value) {
-                  tremSelecionado = value!;
-                  atualizarInformacoes(value);
-                },
-              ),
-              const SizedBox(height: 10),
-              campoTexto('Avisa se o trem atrasar', aviso),
-              campoTexto('Mostra onde o trem está.', localizacao),
-              campoTexto('Próxima parada', proximaParada),
-              campoTexto('Quanto tempo vai demorar', tempo),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Voltar'),
-              ),
-            ],
+                  const SizedBox(height: 20),
+
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Tipos de trens')),
+
+                  DropdownButton<String>(
+                    isExpanded: true,
+                    value: tremSelecionado,
+                    hint: Text("Selecione"),
+                    items: lista
+                        .map((nome) =>
+                            DropdownMenuItem(value: nome, child: Text(nome)))
+                        .toList(),
+                    onChanged: (value) {
+                      tremSelecionado = value!;
+                      atualizarInformacoes(value);
+                    },
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  campoTexto('Avisa se o trem atrasar', aviso),
+                  campoTexto('Mostra onde o trem está.', localizacao),
+                  campoTexto('Próxima parada', proximaParada),
+                  campoTexto('Quanto tempo vai demorar', tempo),
+
+                  const SizedBox(height: 10),
+
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Voltar'),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

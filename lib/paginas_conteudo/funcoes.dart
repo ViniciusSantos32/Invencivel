@@ -83,7 +83,7 @@ class _RelatorioState extends State<Relatorio> {
         if (dados) {
           Get.to(Dados1());
         } else if (desempenho) {
-          Get.to(DesempenhoPage());
+          Get.to(Desempenho());
         }else if (EficienciaOperacional) {
           Get.to(TelaTrens());
         } else {
